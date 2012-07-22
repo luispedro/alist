@@ -1,0 +1,38 @@
+Name: alist
+Version: 0.0.0.0.0
+Cabal-Version: >= 1.2
+Build-Type: Simple
+
+Author:Luis Pedro Coelho
+Copyright:(C) 2012 Luis Pedro Coelho
+License: MIT
+License-File:COPYING.MIT
+Maintainer:luis@luispedro.org
+
+Homepage:http://luispedro.org/software/alist
+Synopsis:Append List
+Category:Data
+
+Tested-With: GHC==7.4.1
+
+Library
+    Build-Depends:
+                base
+    Exposed-modules:
+                Data.AList
+    GHC-Options: -Wall -fwarn-tabs -O2
+
+
+Test-Suite test-AList
+    Type: exitcode-stdio-1.0
+    Main-Is: TestSuite.hs
+    Build-Depends:
+                HUnit
+                ,QuickCheck
+                ,test-framework
+                ,test-framework-hunit
+                ,test-framework-quickcheck2
+                ,test-framework-th
+    Other-Modules:
+    GHC-Options: -Wall -fwarn-tabs -fno-warn-missing-signatures
+
