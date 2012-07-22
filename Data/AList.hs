@@ -2,6 +2,7 @@ module Data.AList
     ( AList
     , singleton
     , fromList
+    , Fld.toList
     ) where
 
 import Data.Monoid
