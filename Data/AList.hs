@@ -3,12 +3,19 @@ module Data.AList
     , singleton
     , fromList
     , Fld.toList
+    , safeHead
+    , safeTail
+    , head
+    , tail
+    , length
     ) where
 
+import Prelude hiding (head, tail, length)
 import Data.Monoid
 import qualified Data.Foldable as Fld
 import Data.Functor
 import Data.Traversable
+import Data.Maybe
 
 import Control.Applicative
 
@@ -47,4 +54,25 @@ singleton = ALSingleton
 fromList :: [a] -> AList a
 fromList [] = ALEmpty
 fromList (a:as) = singleton a `ALAppend` fromList as
+
+safeHead :: AList a -> Maybe a
+safeHead ALEmpty = Nothing
+safeHead (ALSingleton a) = Just a
+safeHead (ALAppend left right) = safeHead left <|> safeHead right
+
+head :: AList a -> a
+head = fromJust . safeHead
+
+safeTail :: AList a -> Maybe a
+safeTail ALEmpty = Nothing
+safeTail (ALSingleton a) = Just a
+safeTail (ALAppend left right) = safeTail right <|> safeTail left
+
+tail :: AList a -> a
+tail = fromJust . safeTail
+
+length :: AList a -> Int
+length ALEmpty = 0
+length (ALSingleton _) = 1
+length (ALAppend left right) = length left + length right
 
